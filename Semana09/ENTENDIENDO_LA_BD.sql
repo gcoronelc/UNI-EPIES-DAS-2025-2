@@ -2,7 +2,7 @@
 -- que se comercializan.
 
 declare @tipo char(3);
-set @tipo = 'REV';
+set @tipo = 'LIB';
 select * from TIPO where idtipo=@tipo;
 select * from PUBLICACION where idtipo=@tipo;
 go
