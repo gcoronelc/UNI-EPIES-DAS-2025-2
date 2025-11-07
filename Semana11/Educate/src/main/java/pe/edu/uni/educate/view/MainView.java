@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
- */
 package pe.edu.uni.educate.view;
 
-/**
- *
- * @author LAB B
- */
+import javax.swing.JInternalFrame;
+import pe.edu.uni.educate.dto.EmpleadoDto;
+import pe.edu.uni.educate.util.Session;
+
 public class MainView extends javax.swing.JFrame {
 
 	/**
@@ -15,6 +11,16 @@ public class MainView extends javax.swing.JFrame {
 	 */
 	public MainView() {
 		initComponents();
+		this.setExtendedState(MAXIMIZED_BOTH);
+		this.establecerTitulo();
+	}
+
+	private void establecerTitulo() {
+		// Obtener el objeto usuario.
+		EmpleadoDto bean = (EmpleadoDto) Session.get("usuario");
+		// Ahora el titulo
+		String titulo = "Educate con los mejores (" + bean.getUsuario() + ")";
+		this.setTitle(titulo);
 	}
 
 	/**
@@ -27,33 +33,21 @@ public class MainView extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
-        pasteMenuItem = new javax.swing.JMenuItem();
-        deleteMenuItem = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
+        menuProcesos = new javax.swing.JMenu();
+        menuMaestros = new javax.swing.JMenu();
+        menuConsultas = new javax.swing.JMenu();
+        menuConsultasMatriculados = new javax.swing.JMenuItem();
+        menuCinsultasPrecioCurso = new javax.swing.JMenuItem();
+        menuReportes = new javax.swing.JMenu();
+        menuUtil = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        fileMenu.setMnemonic('f');
         fileMenu.setText("File");
 
-        openMenuItem.setText("Open");
-        fileMenu.add(openMenuItem);
-
-        saveMenuItem.setText("Save");
-        fileMenu.add(saveMenuItem);
-
-        saveAsMenuItem.setText("Save As ...");
-        saveAsMenuItem.setDisplayedMnemonicIndex(5);
-        fileMenu.add(saveAsMenuItem);
-
+        exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,31 +58,37 @@ public class MainView extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setText("Edit");
+        menuProcesos.setText("Procesos");
+        menuBar.add(menuProcesos);
 
-        cutMenuItem.setText("Cut");
-        editMenu.add(cutMenuItem);
+        menuMaestros.setText("Maestros");
+        menuBar.add(menuMaestros);
 
-        copyMenuItem.setText("Copy");
-        editMenu.add(copyMenuItem);
+        menuConsultas.setText("Consultas");
 
-        pasteMenuItem.setText("Paste");
-        editMenu.add(pasteMenuItem);
+        menuConsultasMatriculados.setText("Matriculados");
+        menuConsultasMatriculados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultasMatriculadosActionPerformed(evt);
+            }
+        });
+        menuConsultas.add(menuConsultasMatriculados);
 
-        deleteMenuItem.setText("Delete");
-        editMenu.add(deleteMenuItem);
+        menuCinsultasPrecioCurso.setText("Precio de curso");
+        menuCinsultasPrecioCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCinsultasPrecioCursoActionPerformed(evt);
+            }
+        });
+        menuConsultas.add(menuCinsultasPrecioCurso);
 
-        menuBar.add(editMenu);
+        menuBar.add(menuConsultas);
 
-        helpMenu.setText("Help");
+        menuReportes.setText("Reportes");
+        menuBar.add(menuReportes);
 
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
+        menuUtil.setText("Util");
+        menuBar.add(menuUtil);
 
         setJMenuBar(menuBar);
 
@@ -96,7 +96,7 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,6 +109,14 @@ public class MainView extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
 		System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void menuConsultasMatriculadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultasMatriculadosActionPerformed
+        mostrarForm(MatriculadosView.class);
+    }//GEN-LAST:event_menuConsultasMatriculadosActionPerformed
+
+    private void menuCinsultasPrecioCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCinsultasPrecioCursoActionPerformed
+        mostrarForm(PrecioCursoView.class);
+    }//GEN-LAST:event_menuCinsultasPrecioCursoActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -146,21 +154,40 @@ public class MainView extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
-    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem pasteMenuItem;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem menuCinsultasPrecioCurso;
+    private javax.swing.JMenu menuConsultas;
+    private javax.swing.JMenuItem menuConsultasMatriculados;
+    private javax.swing.JMenu menuMaestros;
+    private javax.swing.JMenu menuProcesos;
+    private javax.swing.JMenu menuReportes;
+    private javax.swing.JMenu menuUtil;
     // End of variables declaration//GEN-END:variables
+
+	private void mostrarForm(Class<?> aClass) {
+		try {
+			// Variable de control
+			JInternalFrame view = null;
+			// Buscar instancia
+			for (JInternalFrame form : desktopPane.getAllFrames()) {
+				if (aClass.isInstance(form)) {
+					view = form;
+					break;
+				}
+			}
+			// Crear instancia
+			if (view == null) {
+				view = (JInternalFrame) aClass.getConstructor().newInstance();
+				desktopPane.add(view);
+				view.setVisible(true);
+				view.setMaximum(true);
+			}
+			view.setSelected(true);
+		} catch (Exception e) {
+		}
+	}
 
 }
