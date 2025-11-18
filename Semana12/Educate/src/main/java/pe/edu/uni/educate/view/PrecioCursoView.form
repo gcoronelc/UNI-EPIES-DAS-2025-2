@@ -127,7 +127,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder position="1" title="Control">
+            <TitledBorder position="1" title="Datos">
               <Font PropertyName="font" name="Segoe UI" size="24" style="1"/>
               <Color PropertyName="color" blue="cc" green="66" red="0" type="rgb"/>
             </TitledBorder>
